@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Header from "./components/Header";
 import TierTable from "./components/TierTable";
 import TierForm from "./components/TierForm";
 
 const App = () => {
+  const [tiers, setTiers] = useState([]);
+
   return (
     <div className="container">
       <Header />
