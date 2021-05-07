@@ -9,7 +9,7 @@ const TierTable = (props) => {
         message = 'No Tiers Recorded';
     }else {
         tierRows = tiers.map(tier => {
-            return <TableBody key={tier.id} {...tier} />
+            return <TableBody key={tier.id} {...tier} delete={props.delete}/>
         })
     }
     return(

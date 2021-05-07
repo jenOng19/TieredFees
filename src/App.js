@@ -37,12 +37,29 @@ const App = () => {
       })
   }
 
+  const deleteTier = (id) => {
+    fetch(`/api/tiers/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json());
+
+    const duplicate = tiers.slice();
+    const findId = duplicate.findIndex(tier => { return tier.id === id; });
+    if (findId >= 0) {
+      duplicate.splice(findId, 1);
+      setTiers([...duplicate])
+    }
+  }
+
   return (
     <div className="container">
       <Header />
       <div className="row">
         <div className="col-md-7 col-12">
-          <TierTable tiers = {tiers}/>
+          <TierTable tiers = {tiers} delete = {deleteTier}/>
         </div>
         <div className="col-md-5 col-12">
           <TierForm add={addTier}/>

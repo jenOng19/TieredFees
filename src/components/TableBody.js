@@ -7,7 +7,7 @@ const TableBody = (props) => {
             <td>{props.max}</td>
             <td>{props.fee}</td>
             <td>
-                <button className='btn btn-danger'>Delete</button>
+                <button onClick={() => props.delete(props.id)} className='btn btn-danger'>Delete</button>
             </td>
         </tr>
     );
