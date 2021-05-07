@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
+import Header from "./components/Header";
+import TierTable from "./components/TierTable";
+import TierForm from "./components/TierForm";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header />
+      <div className="row">
+        <div className="col-md-7 col-12">
+          <TierTable />
+        </div>
+        <div className="col-md-5 col-12">
+          <TierForm />
+        </div>
+      </div>
     </div>
   );
 }
