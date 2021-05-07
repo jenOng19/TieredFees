@@ -1,11 +1,11 @@
 import React from 'react';
 
-const TableBody = () => {
+const TableBody = (props) => {
     return (
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{props.min}</td>
+            <td>{props.max}</td>
+            <td>{props.fee}</td>
             <td>
                 <button className='btn btn-danger'>Delete</button>
             </td>
