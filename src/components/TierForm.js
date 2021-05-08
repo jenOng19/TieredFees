@@ -1,17 +1,40 @@
 import React, {useState} from 'react';
 
 const TierForm = (props) => {
+    const{add,tiers} = props;
     const[inputs, setInputs] = useState({});
 
     const handleInputChange = (event) => {
-        const { name, value, type } = event.target;
-        setInputs(prevState => ({ ...prevState, [name]: type === "number" ? parseInt(value,10) : value }));
+        const { name, value } = event.target;
+        setInputs(prevState => ({ ...prevState, [name]: parseFloat(value)}));
+    }
+
+    const validateTiers = () => {
+        const tiersLength = tiers.length;
+        const prevTier = tiersLength-1;
+        let result = null;
+        if(tiersLength>=1){
+            if(inputs.min === tiers[prevTier].max+0.01){
+                result= true;
+            }else{
+                result = false;
+            }
+        }else if(tiersLength === 0 ){
+            result =true;
+        }
+        return result;
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.add(inputs);
-        setInputs({})
+        const validate = validateTiers();
+        if(validate){
+            add(inputs);
+            setInputs({})
+        }else{
+            setInputs({});
+            alert("There cannot be gaps between the price ranges. Please enter the correct min price.");
+        }
     }
 
     return(
@@ -23,7 +46,7 @@ const TierForm = (props) => {
                     <div className="input-group-prepend">
                         <div className="input-group-text">$</div>
                     </div>
-                    <input type="number" className="form-control" name = "min" value={inputs.min || ''} id="inlineFormInputGroupUsername" placeholder="Min Price" onChange={handleInputChange}/>
+                    <input type="number" min="0.0" step = "any" className="form-control" name = "min" value={inputs.min|| ''} id="inlineFormInputGroupUsername" placeholder="Min Price" required onChange={handleInputChange}/>
                 </div>
             </div>
 
@@ -33,7 +56,7 @@ const TierForm = (props) => {
                     <div className="input-group-prepend">
                         <div className="input-group-text">$</div>
                     </div>
-                    <input type="number" className="form-control" name="max" value={inputs.max || ''} id="inlineFormInputGroupUsername" placeholder="Max Price" onChange={handleInputChange}/>
+                    <input type="number" min="0.00" step = "any" className="form-control" name="max" value={inputs.max || ''} id="inlineFormInputGroupUsername" placeholder="Max Price" onChange={handleInputChange}/>
                 </div>
             </div>
 
@@ -43,11 +66,11 @@ const TierForm = (props) => {
                     <div className="input-group-prepend">
                         <div className="input-group-text">$</div>
                     </div>
-                    <input type="number" className="form-control" name="fee" value={inputs.fee || ''} id="inlineFormInputGroupUsername" placeholder="Fee" onChange={handleInputChange}/>
+                    <input type="number" min="0.00" step = "any" className="form-control" name="fee" value={inputs.fee || ''} id="inlineFormInputGroupUsername" placeholder="Fee" required onChange={handleInputChange}/>
                 </div>
             </div>
             <div className="text-left">
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Add</button>
             </div>
         </form>
     )

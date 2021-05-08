@@ -54,15 +54,29 @@ const App = () => {
     }
   }
 
+  const validate = () => {
+    if(tiers.length === 1) console.log("Tiers are valid.")
+
+    if(tiers.length>1){
+      for(let i = 0; i < tiers.length-1; i++){
+        if(tiers[i+1].min !== tiers[i].max + 0.01 ){
+          console.log( "Tiers are not valid");
+          return;
+        }
+      }
+    }
+    console.log("Tiers are valid.")
+  }
+
   return (
     <div className="container">
       <Header />
       <div className="row">
         <div className="col-md-7 col-12">
-          <TierTable tiers = {tiers} delete = {deleteTier}/>
+          <TierTable tiers = {tiers} delete = {deleteTier} validate = {validate}/>
         </div>
         <div className="col-md-5 col-12">
-          <TierForm add={addTier}/>
+          <TierForm add={addTier} tiers = {tiers}/>
         </div>
       </div>
     </div>
